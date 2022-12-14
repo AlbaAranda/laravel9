@@ -23,6 +23,21 @@ class StudyController extends Controller
 
     public function edit($id)
     {
-        echo "En edit de estudio $id ";
+        echo "En edit de  $id ";
+    }
+
+    public function destroy($id)
+    {
+        echo "En destroy de $id";
+    }
+
+    public function update($id)
+    {
+        echo "En update de estudio";
+    }
+
+    public function store()
+    {
+        echo "En store de estudio";
     }
 }

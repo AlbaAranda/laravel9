@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PruebaController;
 use Illuminate\Support\Facades\Route;
 
 //esto es el nombre del controlador
@@ -16,11 +17,14 @@ use App\Http\Controllers\StudyController;
 */
 
 Route::get('/', function () {
+    
     return view('welcome');
 });
 
 Route::get('/hola', function(){
-     
+     //lo que hay detras del return si no es una vista se convierte a json
+    return $_SERVER;
+    dd($_SERVER);
     echo "Hola mundo";
 });
 
@@ -48,7 +52,24 @@ Route::get('/saludo', function()
     echo 'Bonjour';
 });
 
-Route::get('/studies', [StudyController::class, 'index']);
-Route::get('/studies/create', [StudyController::class, 'create']);
-Route::get('/studies/{id}', [StudyController::class, 'show']);
-Route::get('/studies/{id}/edit', [StudyController::class, 'edit']);
+
+//Route::get('/studies', [StudyController::class, 'index']);
+//Route::get('/studies/create', [StudyController::class, 'create']);
+//Route::get('/studies/{id}', [StudyController::class, 'show']);
+
+Route::get('/studies/{id}', function($id)
+{
+    echo "El modulo con id: $id";
+    //con + decimos que hay uno o varios de cada numero
+})->where('id','[0-9]+[A-Za-z]+');
+//Route::get('/studies/{id}/edit', [StudyController::class, 'edit']);
+
+//Route::delete('/studies/{id}', [StudyController::class, 'destroy']);
+//Route::put('/studies/{id}', [StudyController::class, 'update']);
+//Route::post('studies', [StudyController::class, 'store']);
+
+
+//con esto se llama a las 7 rutas anteriores
+//Route::resource('/studies', StudyController::class);
+
+Route::get('prueba2/{name}', [PruebaController::class,'saludoCompleto']);
