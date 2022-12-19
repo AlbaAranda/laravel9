@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AppEjemplo;
+use App\Http\Controllers\AsignaturaController;
 use App\Http\Controllers\PruebaController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,10 +18,34 @@ use App\Http\Controllers\StudyController;
 |
 */
 
+Route:: resource('asignaturas', AsignaturaController::class);
+
+//RUTAS CON NOMBRE:
+
+/*
+Route::get('/informacion-asignatura', function(){
+    return "Dinos tu duda";
+})-> name('contacto'); 
+
 Route::get('/', function () {
-    
-    return view('welcome');
+    //return view('welcome');
+    echo "<a href=' " . route('contacto') . "'>Contactar 1</a><br>";
+    echo "<a href=' " . route('contacto') . "'>Contactar 2</a><br>";
+    echo "<a href=' " . route('contacto') . "'>Contactar 3</a><br>";
 });
+
+*/
+
+Route::get('/informacion-asignatura', [AppEjemplo::class, 'mostrarinformacion']
+
+)-> name('infoasig');
+
+Route::get('/', function () {
+    //return view('welcome');
+    echo "<a href=' " . route('infoasig') . "'>Mostrar información Asignatura</a><br>";
+
+});
+
 
 Route::get('/hola', function(){
      //lo que hay detras del return si no es una vista se convierte a json
