@@ -14,13 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
+            $table->id();  //integer , unsigned, autoincremental
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->rememberToken();
-            $table->timestamps();
+            $table->rememberToken(); //crea un token aleatorio de tipo cadena, pero no se va a usar por ahora
+            $table->timestamps();  //created_at, modified_at
         });
     }
 

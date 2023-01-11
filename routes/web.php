@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AppEjemplo;
 use App\Http\Controllers\AsignaturaController;
+use App\Http\Controllers\AulaController;
 use App\Http\Controllers\PruebaController;
 use Illuminate\Support\Facades\Route;
 
@@ -35,6 +36,10 @@ Route::get('/', function () {
 });
 
 */
+
+
+Route::get('/mostrar-aula',[AulaController::class, 'mostarclase'])->name('showaula');
+
 
 Route::get('/informacion-asignatura', [AppEjemplo::class, 'mostrarinformacion']
 

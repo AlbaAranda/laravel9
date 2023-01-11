@@ -6,6 +6,7 @@
     Alta de asignaturas
 @stop
 
+
 <!--Para recoger los errores -->
 @section('cuerpo')
     @parent

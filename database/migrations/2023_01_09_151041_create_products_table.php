@@ -13,10 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('password_resets', function (Blueprint $table) {
-            $table->string('email')->index(); //index significa que es clave
-            $table->string('token');
-            $table->timestamp('created_at')->nullable(); //puede ser nulo
+        Schema::create('products', function (Blueprint $table) {
+            $table->id();
+            $table->string('nombre',100);
+            $table->float('precio')->default(0);
+            $table->timestamps();
         });
     }
 
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('password_resets'); //si existe que borre la tabla
+        Schema::dropIfExists('products');
     }
 };

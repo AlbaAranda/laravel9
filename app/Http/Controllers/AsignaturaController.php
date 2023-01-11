@@ -56,6 +56,8 @@ class AsignaturaController extends Controller
             'ciclo.size' => 'El ciclo solo pueden contener 3 letras'
         ]);
 
+        dd($datos);
+
         /*
         $nombre = $request->input('nombre'); //se recomienda esta porque permite utilizar array  Hay otras opciones
         $curso = $request->input('curso');

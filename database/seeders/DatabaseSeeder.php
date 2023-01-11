@@ -20,5 +20,9 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
+        $this->call([  //esto se crea para no tener que poner --class=ProductSeeder despues de php artisan db:seed
+            ProductSeeder::class
+        ]);
     }
 }
