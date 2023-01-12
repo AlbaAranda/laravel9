@@ -13,12 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('orders_products', function (Blueprint $table) {
+        Schema::create('courses', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('order_id'); //crear el campo fk
-            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
-            $table->unsignedBigInteger('product_id'); //crear el campo fk
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->string('nombre');
+            $table->integer('nivel');
+            $table->integer('horasAcademicas');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('orders_products');
+        Schema::dropIfExists('courses');
     }
 };
