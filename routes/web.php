@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Route;
 
 //esto es el nombre del controlador
 use App\Http\Controllers\StudyController;
+
+use App\Http\Controllers\ProductController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,7 +21,10 @@ use App\Http\Controllers\StudyController;
 |
 */
 
-Route:: resource('asignaturas', AsignaturaController::class);
+//para el ejercicio de products
+Route::resource('products', ProductController::class);
+
+//Route:: resource('asignaturas', AsignaturaController::class);
 
 //RUTAS CON NOMBRE:
 
