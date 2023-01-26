@@ -13,9 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('courses', function(Blueprint $table){
-            $table->unsignedBigInteger('teacher_id');
-            $table->foreign('teacher_id')->references('id')->on('teachers');
+        Schema::create('clients', function (Blueprint $table) {
+            $table->id();
+            $table->string('DNI')->unique();
+            $table->string('nombre');
+            $table->integer('apellidos');
+            $table->string('telefono');
+            $table->string('email');
+            $table->timestamps();
         });
     }
 
@@ -26,9 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('courses', function(Blueprint $table){
-            $table->dropForeign('teacher_id');
-            $table->dropColumn('teacher_id');
-        });
+        Schema::dropIfExists('clients');
     }
 };

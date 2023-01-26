@@ -1,13 +1,12 @@
 <?php
 
 namespace Database\Seeders;
-
-use App\Models\Order;
+use App\Models\Customer;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
-class OrderSeeder extends Seeder
+
+class CustomerSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,7 +15,6 @@ class OrderSeeder extends Seeder
      */
     public function run()
     {
-        //AÑADIR EL FACTORY AL ORDERSEEDER
-        Order::factory()->count(50)->create(); //cantidad de registros de la tabla
+        Customer::factory()->count(35)->create(); //creamos 35 registro de tipo cliente
     }
 }

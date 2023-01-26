@@ -2,12 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Order;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
-class OrderSeeder extends Seeder
+class ClientSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,7 +14,6 @@ class OrderSeeder extends Seeder
      */
     public function run()
     {
-        //AÑADIR EL FACTORY AL ORDERSEEDER
-        Order::factory()->count(50)->create(); //cantidad de registros de la tabla
+        //
     }
 }

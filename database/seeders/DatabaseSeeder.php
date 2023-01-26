@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Customer;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -29,7 +31,10 @@ class DatabaseSeeder extends Seeder
         //ES RECOMENDABLE QUITAR ESTE CALL
 
         $this->call([  //esto se crea para no tener que poner --class=ProductSeeder despues de php artisan db:seed
-            OrderSeeder::class
+            CustomerSeeder::class,
+            OrderSeeder::class,
+            CustomerOrderSeeder::class
+            
         ]);
 
         /*$this->call([  //esto se crea para no tener que poner --class=ProductSeeder despues de php artisan db:seed

@@ -20,6 +20,9 @@ use App\Http\Controllers\ProductController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/', function () {
+    return view('welcome');
+});
 
 //para el ejercicio de products
 Route::resource('products', ProductController::class);
@@ -41,7 +44,7 @@ Route::get('/', function () {
 });
 
 */
-
+/*
 
 Route::get('/mostrar-aula',[AulaController::class, 'mostarclase'])->name('showaula');
 
@@ -54,9 +57,9 @@ Route::get('/', function () {
     //return view('welcome');
     echo "<a href=' " . route('infoasig') . "'>Mostrar información Asignatura</a><br>";
 
-});
+}); */
 
-
+/*
 Route::get('/hola', function(){
      //lo que hay detras del return si no es una vista se convierte a json
     return $_SERVER;
@@ -109,3 +112,24 @@ Route::get('/studies/{id}', function($id)
 //Route::resource('/studies', StudyController::class);
 
 Route::get('prueba2/{name}', [PruebaController::class,'saludoCompleto']);
+*/
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
