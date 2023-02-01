@@ -31,6 +31,7 @@ class DatabaseSeeder extends Seeder
         //ES RECOMENDABLE QUITAR ESTE CALL
 
         $this->call([  //esto se crea para no tener que poner --class=ProductSeeder despues de php artisan db:seed
+            ProductSeeder::class,
             CustomerSeeder::class,
             OrderSeeder::class,
             CustomerOrderSeeder::class

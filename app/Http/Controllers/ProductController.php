@@ -9,6 +9,12 @@ use App\Models\Product;
 
 class ProductController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('auth'); // para ver los productos de los usuarios autenticados. Si no esta autenticado no vas a poder ver los podructos
+        //$this->middleware('auth')->only('index');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -16,6 +22,7 @@ class ProductController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny', Product::class); //la forma mas simple de aplicar la politica
         //variable donde cargar todos los registros
         $productList = Product::all(); // el metodo all es eloquent ORM
 
@@ -81,6 +88,7 @@ class ProductController extends Controller
     {
         //buscar el producto
         $product = Product::find($id); //eloquent
+        $this->authorize('view', $product);
         //return $product;
         //devolver vista
         return view('product.show', ['product'=> $product]);
