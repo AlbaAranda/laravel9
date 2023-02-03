@@ -9,6 +9,12 @@ use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
+
+    //Con esto se está filtrando todas las peticiones sobre el controlador De Customer
+    public function __construct(){
+        $this->middleware('auth'); // para ver los productos de los usuarios autenticados. Si no esta autenticado no vas a poder ver los podructos
+        //$this->middleware('auth')->only('index');
+    }
     /**
      * Display a listing of the resource.
      *

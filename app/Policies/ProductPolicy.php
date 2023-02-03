@@ -19,6 +19,8 @@ class ProductPolicy
     public function viewAny(User $user)
     {
         return true;
+
+        //return $user->id ==1;
     }
 
     /**
@@ -55,6 +57,8 @@ class ProductPolicy
         else{
             return false;
         }
+
+        //return $user->id ==1;
     }
 
     /**
@@ -68,7 +72,7 @@ class ProductPolicy
     {
         if($user->id== 1){
             //return $product->id %2 == 0;
-            return $product->id;
+            return true;
         }
         else{
             return false;
@@ -86,13 +90,16 @@ class ProductPolicy
      */
     public function delete(User $user, Product $product)
     {
+        //solo el usuario 1 (que es el admin) pueda borrar 
         if($user->id== 1){
             //return $product->id %2 == 0;
-            return $product->id;
+            return true;
         }
         else{
             return false;
         }
+
+        //return ($user->id ==1) ? true : false;
     }
 
     public function changeprice(User $user, Product $product){ // una funcion de ejemplo, que nos dice que pueden cambiar de precio solo el usuario cuyo nombre es alba

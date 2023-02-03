@@ -9,10 +9,14 @@ use App\Models\Product;
 
 class ProductController extends Controller
 {
-
+    //Con esto se está filtrando todas las peticiones sobre el controlador De Product
     public function __construct(){
-        $this->middleware('auth'); // para ver los productos de los usuarios autenticados. Si no esta autenticado no vas a poder ver los podructos
-        //$this->middleware('auth')->only('index');
+        $this->middleware('auth'); // para ver los productos de los usuarios autenticados. Si no esta autenticado no vas a poder ver los productos
+
+        //$this->middleware('auth')->only('index'); -> para que filtre solo las peticiones del index
+
+        //$this->middleware('auth')->except('index');  para que filtre las peticiones todas excepto las del index
+        session(['contador' => '0']);
     }
     
     /**
@@ -39,6 +43,7 @@ class ProductController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Product::class); 
         return view('product.create');
     }
 
@@ -86,10 +91,21 @@ class ProductController extends Controller
      */
     public function show($id)
     {
+        
         //buscar el producto
         $product = Product::find($id); //eloquent
         $this->authorize('view', $product);
         //return $product;
+
+        if($id %2 == 0){
+            session()->increment('contador');
+            session(['color' => 'rojo']);
+        }
+        else{
+            $contador = 0;
+            session(['color' => 'verde']);
+            session(['contador' => $contador]);
+        }
         //devolver vista
         return view('product.show', ['product'=> $product]);
     }
@@ -104,6 +120,7 @@ class ProductController extends Controller
     {
         //Buscar product
         $product = Product::find($id);
+        
         return view('product.edit',['product' => $product]);
     }
 

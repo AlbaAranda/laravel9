@@ -5,11 +5,24 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             @if ($message = Session::get('exito'))
+
+            {{-- @if ($message = session()->get('exito')) --}}
+            {{-- @if ($message = $request->session()->get('exito')) --}}
             <div class="alert alert-succese"> 
                 <p>{{$message}}</p>
             </div>
             @endif
+
+            {{-- dd(session()->all())--}} {{-- Esto es para que sepamos la informacion que sale de la sesion --}}
+
+           {{-- Añadir informacion a la session --}}
+           
+          {{-- session(['contador' => '0']) --}} 
+
+            {{session('contador') }}
+            
             <h1>Listado de productos:</h1> <br>
+            
             @can('create', App\Models\Product::class)
             <a class="btn btn-primary" href="{{ route('products.create') }}">Nuevo producto</a>
             @endcan
