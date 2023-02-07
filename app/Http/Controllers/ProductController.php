@@ -76,9 +76,14 @@ class ProductController extends Controller
         //recuerda que las route va en plural
         return redirect()->route('products.index')->with('exito', 'Producto actualizado correctamente');
         */
+
         //ESTO NO ESTA EN LOS APUNTES
         Product::create($request->all()); //esto es una forma de recoger los request. Primero valida y luego lo empaqueta todo
+
+        $this->authorize('create', Product::class); 
         return redirect()->route('products.index')->with('exito', 'Producto actualizado correctamente');
+
+        
 
 
     }
@@ -120,7 +125,7 @@ class ProductController extends Controller
     {
         //Buscar product
         $product = Product::find($id);
-        
+        $this->authorize('update', $product);
         return view('product.edit',['product' => $product]);
     }
 
@@ -151,8 +156,13 @@ class ProductController extends Controller
         $p->descripcion = $request->input("descripcion");
         $p->precio = $request->input("precio");
         $p->save(); // save es un método de eloquent
+
+        $this->authorize('update', $p);
+
         //recuerda que las route va en plural
         return redirect()->route('products.index')->with('exito', 'Producto actualizado correctamente');
+
+        return redirect()->route('products.index')->with('error', 'Producto no actualizado');
     }
 
     /**
@@ -164,6 +174,7 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $p = Product::find($id);
+        $this->authorize('delete', $p); //metodo del policy
         $p->delete();
         return redirect()->route('products.index')->with('exito', 'Producto actualizado correctamente');
     }
