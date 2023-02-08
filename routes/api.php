@@ -29,9 +29,9 @@ Route::get('/', function(){
     return response()->json($data, 200);
 });
 
-Route::resource('/products', ProductController::class);
+//Route::resource('/products', ProductController::class);
 
-Route::resource('/products', ProductController::class)->except('crate', 'edit');
+Route::resource('/products', ProductController::class)->except('create', 'edit');
 
 //Mensaje cuando se pide algo que no existe
 Route::fallback(function () {

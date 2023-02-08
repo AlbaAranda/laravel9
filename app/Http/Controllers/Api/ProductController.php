@@ -6,6 +6,8 @@ use App\Models\Product;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Validator;
+use Throwable;
 
 class ProductController extends Controller
 {
@@ -33,6 +35,7 @@ class ProductController extends Controller
         //
     }
 
+
     /**
      * Store a newly created resource in storage.
      *
@@ -41,7 +44,30 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //Recibe los datos rellenado del formulario
+
+        /*
+        $request->validate([
+            "nombre"=>'required|max:100',
+            "descripcion"=>'required',
+            "precio"=> 'required|gt:0'
+        ]);*/
+
+        $validated = Validator::make($request->all(),[
+    
+            "nombre"=>'required|max:100',
+            "descripcion"=>'required',
+            "precio"=> 'required|gt:0'
+        ]);
+
+        //si falla la validacion error 422
+        if($validated->fails()){
+            return response()->json(["status"=>"NOK", "data" => $validated->errors()],422);
+        }
+        
+        //si no crea un producto
+        $newproduct = Product::create($request->all());
+        return response()->json(["status"=>"ok", "data" => $newproduct],201);
     }
 
     /**
@@ -89,8 +115,37 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $product = Product::find($id);
+
+        if(!$product){
+
+            return response()->json([
+                'status'=> 'NOK',
+                'message'=> 'No se encuentra un producto con ese código'
+
+            ],404);
+        }
+
+        $validated = Validator::make($request->all(),[
+
+            "nombre"=>'required|max:100',
+            "descripcion"=>'required',
+            "precio"=> 'required|gt:0'
+        ]);
+
+        //si falla la validacion error 422
+        if($validated->fails()){
+            return response()->json(["status"=>"NOK", "data" => $validated->errors()],422);
+        }
+
+        $product->fill($request->all()); //relleno con los datos el objeto 
+        $product->save(); //guardo en bbdd
+        
+        return response()->json(['status'=> 'ok', 'data'=>$product],200);
+        
+        
     }
+    
 
     /**
      * Remove the specified resource from storage.
@@ -100,6 +155,29 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product = Product::find($id);
+
+        if(!$product){
+
+            return response()->json([
+                'status'=> 'NOK',
+                'message'=> 'No se encuentra un producto con ese código.'
+
+            ],404);
+        } //if
+
+
+        try{
+            $product->delete();
+
+            //tdo ok con el codigo 204
+            return response()->json(['Borrado correctamente'],204);
+        }
+        catch (\Throwable $th){
+            return response()->json(["status" => "NOK",
+                    "mensaje" => "Borrado no realizado",
+                    "error" => $th->getMessage()
+            ],409);
+        } //termina try
     }
 }
