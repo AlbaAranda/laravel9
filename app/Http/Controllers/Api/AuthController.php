@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
+    
     /**
      * Create a new AuthController instance.
      *
@@ -30,7 +31,7 @@ class AuthController extends Controller
         //return $this->respondWithToken($token);
 
         try {
-            if ($token = auth()->attempt($credentials)) {
+            if ($token = auth('api')->attempt($credentials)) {
                 return $this->respondWithToken($token); //OK
             } else {
                 return response()->json(['error' => 'Credenciales inválidas'], 400);
@@ -41,7 +42,25 @@ class AuthController extends Controller
         }
     }
 
+    public function logout()
+    {
+        // auth()->logout();
+        Auth::logout();
 
+        return response()->json(['message' => 'Salió con éxito']);
+    }
+
+
+
+    public function me()
+    {
+        return response()->json(Auth::user());
+    }
+
+    public function refresh()
+    {
+        return $this->respondWithToken(auth()->refresh());
+    }
 
     protected function respondWithToken($token, $status = 200)
     {
@@ -50,10 +69,5 @@ class AuthController extends Controller
             'token_type' => 'bearer',
             'expires_in' => auth('api')->factory()->getTTL() * 60
         ], $status);
-    }
-
-    public function me()
-    {
-        return response()->json(Auth::user());
     }
 }

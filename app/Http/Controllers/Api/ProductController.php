@@ -11,6 +11,13 @@ use Throwable;
 
 class ProductController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -18,11 +25,30 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
+        //este this seria con el de web
+       // $this->authorize('viewAny', Product::class);
+
+       //en api seria:
+       /*$user = \Auth::user();
+       if($user->can('viewAny', Product::class)){
+            $products = Product::all();
+            return response()->json(['status'=> 'ok', 'data'=>$products],200);
+       }
+       else{
+            return response()->json(['status'=> 'nok', 'message'=>"No tienes permiso"],403);
+       }*/
+       
+        //$products = Product::all();
         //return $products;
+        //return response()->json(['status' => 'ok','data' => $products,200]);
 
+        $user = \Auth::user();
+        
+        if(!$user->can('viewAny', Product::class)){
+            return response()->json(['status'=> 'nok', 'message'=>"No tienes permiso"],403);
+        }
+        
         return response()->json(['status' => 'ok','data' => $products,200]);
-
     }
 
     /**
