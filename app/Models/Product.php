@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
+
+
 class Product extends Model
 {
     use HasFactory;
@@ -28,6 +31,15 @@ class Product extends Model
         return strtoupper($value);
     }
     
+    //sintaxis laravel9
+    protected function Nombre() : Attribute
+    {
+        return new Attribute(
+            fn ($value) => strtoupper($value),
+            fn ($value) => ucfirst(strtolower($value)),
+        );
+    }
+
     //coger el precio y los muestre con la palabra euros
     public function getPrecioAttribute($value){
         return ($value . ' euros');

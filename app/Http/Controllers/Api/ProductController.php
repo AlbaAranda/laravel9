@@ -43,6 +43,8 @@ class ProductController extends Controller
         //return response()->json(['status' => 'ok','data' => $products,200]);
 
         $user = \Auth::user();
+
+        $products = Product::all();
         
         if(!$user->can('viewAny', Product::class)){
             return response()->json(['status'=> 'nok', 'message'=>"No tienes permiso"],403);
